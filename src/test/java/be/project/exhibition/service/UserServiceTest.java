@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -25,6 +26,9 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserService userService;
 
     @Test
@@ -32,16 +36,16 @@ class UserServiceTest {
         //Given
         String userId = "user1";
         String password = "password";
+        String encodedPassword = passwordEncoder.encode(password);
         String userName = "first";
         String email = "thdwjd@naver.com";
 
         //When
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
-        when(userRepository.save(any())).thenReturn((UserFixture.get(userId, password, userName, email)));
+        when(userRepository.save(any())).thenReturn((UserFixture.get(userId, encodedPassword, userName, email)));
+
         //Then
-        assertDoesNotThrow(() -> userService.join(userId,password,userName,email));
-
-
+        assertDoesNotThrow(() -> userService.join(userId,encodedPassword,userName,email));
     }
 
     @Test
@@ -49,6 +53,7 @@ class UserServiceTest {
         //Given
         String userId = "user1";
         String password = "password";
+        String encodedPassword = passwordEncoder.encode(password);
         String userName = "first";
         String email = "thdwjd@naver.com";
 
@@ -59,7 +64,7 @@ class UserServiceTest {
         when(userRepository.save(any())).thenReturn(Optional.of(fixture));
 
         //Then
-        ApplicationException e = assertThrows(ApplicationException.class, () -> userService.join(userId, password, userName, email));
+        ApplicationException e = assertThrows(ApplicationException.class, () -> userService.join(userId, encodedPassword, userName, email));
         assertEquals(ErrorCode.DUPLICATED_USER_ID, e.getErrorCode());
     }
 
@@ -68,10 +73,11 @@ class UserServiceTest {
         //Given
         String userId = "user1";
         String password = "password";
+        String encodedPassword = passwordEncoder.encode(password);
         String userName = "first";
         String email = "thdwjd@naver.com";
 
-        UserEntity entity = UserFixture.get(userId,password,userName,email);
+        UserEntity entity = UserFixture.get(userId,encodedPassword,userName,email);
 
         //When
         when(userRepository.findById(userId)).thenReturn(Optional.of(entity));
@@ -91,10 +97,11 @@ class UserServiceTest {
         //Given
         String userId = "user1";
         String password = "password";
+        String encodedPassword = passwordEncoder.encode(password);
         String userName = "first";
         String email = "thdwjd@naver.com";
 
-        UserEntity user = UserFixture.get(userId, password, userName, email);
+        UserEntity user = UserFixture.get(userId, encodedPassword, userName, email);
 
         //When
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
