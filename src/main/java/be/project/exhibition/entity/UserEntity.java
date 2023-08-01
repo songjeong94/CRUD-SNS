@@ -1,5 +1,6 @@
 package be.project.exhibition.entity;
 
+import be.project.exhibition.dto.UserDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
@@ -32,6 +33,10 @@ public class UserEntity {
         userEntity.setUserName(userName);
         userEntity.setEmail(email);
         return userEntity;
+    }
+
+    public static UserEntity fromDto(UserDto userDto) {
+        return new UserEntity().of(userDto.getUserId(), userDto.getPassword(), userDto.getUserName(), userDto.getEmail());
     }
 
 }
