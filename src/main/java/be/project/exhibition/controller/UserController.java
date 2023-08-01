@@ -24,12 +24,9 @@ public class UserController {
         return Response.success(UserJoinResponse.fromUserDto(user));
     }
 
-    /*
-    todo : response 수정하기
-     */
     @PostMapping("/login")
-    public Response<Void> login(@RequestBody UserLoginRequest userLoginRequest) {
-        UserDto user = userService.login(userLoginRequest.getUserId(), userLoginRequest.getPassword());
-        return Response.success();
+    public Response<UserLoginResponse> login(@RequestBody UserLoginRequest request) {
+        UserDto user = userService.login(request.getUserId(), request.getPassword());
+        return Response.success(new UserLoginResponse(user.getUserId(), user.getPassword()));
     }
 }

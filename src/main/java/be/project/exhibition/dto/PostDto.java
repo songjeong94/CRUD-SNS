@@ -16,7 +16,7 @@ public class PostDto {
     private String body;
     private UserDto user;
 
-    public static PostDto fromEntity (PostEntity entity) {
+    public static PostDto fromEntity(PostEntity entity) {
         return new PostDto(
                 entity.getId(),
                 entity.getTitle(),

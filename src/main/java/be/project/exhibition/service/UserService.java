@@ -38,7 +38,7 @@ public class UserService {
                 () -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s user is not founded", userId)));
 
         // 비밀번호 체크
-        if (passwordEncoder.matches(user.getPassword(), password)==false) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new ApplicationException(ErrorCode.INVALIDED_PASSWORD);
         } else {
             return UserDto.fromEntity(user);
