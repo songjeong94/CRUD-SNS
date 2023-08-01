@@ -5,23 +5,30 @@ import be.project.exhibition.entity.UserEntity;
 import be.project.exhibition.exception.ApplicationException;
 import be.project.exhibition.exception.ErrorCode;
 import be.project.exhibition.repository.UserRepository;
+import be.project.exhibition.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
-/*
- todo : jwt 사용하기
- */
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    @Value("${jwt.secret-key}")
+    private String secretKey;
+
+    @Value("${jwt.token.expired-time-ms}")
+    private Long expiredTimeMs;
+
+    public UserDto loadUserByUserName(String userId) {
+        return userRepository.findByUserId(userId).map(UserDto::fromEntity).orElseThrow(() -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", userId)));
+    }
 
     @Transactional
     public UserDto join(String userId, String password, String userName, String email) {
@@ -33,16 +40,17 @@ public class UserService {
         return UserDto.fromEntity(userEntity);
     }
 
-    public UserDto login(String userId, String password) {
+    public String login(String userId, String password) {
         UserEntity user = userRepository.findById(userId).orElseThrow(
                 () -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s user is not founded", userId)));
 
         // 비밀번호 체크
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new ApplicationException(ErrorCode.INVALIDED_PASSWORD);
-        } else {
-            return UserDto.fromEntity(user);
         }
+        String token = JwtTokenUtils.generateToken(userId,secretKey, expiredTimeMs);
+
+        return token;
     }
 
 }

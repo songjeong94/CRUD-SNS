@@ -1,5 +1,6 @@
 package be.project.exhibition.exception;
 
+import jakarta.transaction.Transaction;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,8 @@ public enum ErrorCode {
     INVALIDED_PERMISSION(HttpStatus.UNAUTHORIZED, "작성자가 아닙니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
 
-    POST_NOT_FOUNDED(HttpStatus.NOT_FOUND, "존재하지 않는 포스트 입니다.")
+    POST_NOT_FOUNDED(HttpStatus.NOT_FOUND, "존재하지 않는 포스트 입니다."),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "토큰이 맞지 않습니다.")
     ;
 
     private HttpStatus status;

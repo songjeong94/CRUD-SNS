@@ -17,7 +17,7 @@ public class UserJoinResponse {
         return new UserJoinResponse(
                 userDto.getUserId(),
                 userDto.getPassword(),
-                userDto.getUserName(),
+                userDto.getName(),
                 userDto.getEmail());
     }
 

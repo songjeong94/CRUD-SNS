@@ -5,14 +5,13 @@ import be.project.exhibition.dto.requset.UserJoinRequest;
 import be.project.exhibition.dto.requset.UserLoginRequest;
 import be.project.exhibition.dto.response.Response;
 import be.project.exhibition.dto.response.UserJoinResponse;
-import be.project.exhibition.dto.response.UserLoginResponse;
 import be.project.exhibition.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -25,8 +24,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Response<UserLoginResponse> login(@RequestBody UserLoginRequest request) {
-        UserDto user = userService.login(request.getUserId(), request.getPassword());
-        return Response.success(new UserLoginResponse(user.getUserId(), user.getPassword()));
+    public Response<String> login(@RequestBody UserLoginRequest request) {
+        String token = userService.login(request.getUserId(), request.getPassword());
+        return Response.success(token);
     }
 }
