@@ -21,7 +21,7 @@ logging:
     org.hibernate.type: trace
 
 
-#jwt:
-#  secret-key: exhibition-sns-project-2023.secret_key
-#  # 30일
-#  token.expired-time-ms: 2592000000
+jwt:
+  secret-key: exhibition-sns-project-2023.secret_key
+  # 30일
+  token.expired-time-ms: 2592000000

@@ -34,7 +34,7 @@ public class PostEntity {
         PostEntity postEntity = new PostEntity();
         postEntity.setTitle(title);
         postEntity.setBody(body);
-        postEntity.setUser(UserEntity.of(user.getUserId(), user.getPassword(), user.getUserName(), user.getEmail()));
+        postEntity.setUser(UserEntity.of(user.getUserId(), user.getPassword(), user.getName(), user.getEmail()));
         return postEntity;
     }
 
