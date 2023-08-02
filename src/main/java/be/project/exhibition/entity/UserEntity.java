@@ -28,7 +28,7 @@ public class UserEntity {
     private String email;
 
     @Column(name = "role")
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.USER;
 
     public static UserEntity of(String userId, String password, String userName, String email) {

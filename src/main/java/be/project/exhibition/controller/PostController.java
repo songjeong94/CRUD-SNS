@@ -8,19 +8,19 @@ import be.project.exhibition.dto.response.Response;
 import be.project.exhibition.repository.UserRepository;
 import be.project.exhibition.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/post")
+@RequestMapping("/api/v1/posts")
 public class PostController {
 
     private final PostService postService;
-    private final UserRepository userRepository;
 
-    @PostMapping("/{userId}")
-    public Response<PostDto> create(@RequestBody PostCreateRequest request, @PathVariable String userId) {
-        PostDto postDto = postService.create(request.getTitle(), request.getBody(), userId);
+    @PostMapping
+    public Response<PostDto> create(@RequestBody PostCreateRequest request, Authentication authentication) {
+        PostDto postDto = postService.create(request.getTitle(), request.getBody(), authentication.getName());
         return Response.success(postDto);
     }
 
@@ -31,7 +31,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public Response<Void> delete(@RequestBody PostCreateRequest request, @PathVariable Long postId) {
+    public Response<Void> delete(@PathVariable Long postId) {
         postService.delete(postId);
         return Response.success();
     }

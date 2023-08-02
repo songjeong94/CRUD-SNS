@@ -13,6 +13,7 @@ import be.project.exhibition.repository.PostRepository;
 import be.project.exhibition.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -23,12 +24,14 @@ public class PostService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
+    @Transactional
     public PostDto create(String title, String body, String userId) {
-        UserEntity userEntity = userRepository.findById(userId).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
+        UserEntity userEntity = getUserEntityOrException(userId);
         PostEntity postEntity = postRepository.save(PostEntity.of(title, body, userEntity));
         return PostDto.fromEntity(postEntity);
     }
 
+    @Transactional
     public PostDto modify(String title, String body, Long postId) {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
         UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
@@ -41,6 +44,7 @@ public class PostService {
         return PostDto.fromEntity(postRepository.saveAndFlush(postEntity));
     }
 
+    @Transactional
     public void delete(Long postId) {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
         UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
@@ -55,6 +59,14 @@ public class PostService {
         UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
         CommentEntity commentEntity = commentRepository.save(CommentEntity.of(comment,postEntity, userEntity));
         return CommentDto.from(commentEntity);
+    }
+
+    public UserEntity getUserEntityOrException(String userId) {
+        return userRepository.findByUserId(userId).orElseThrow(() -> new ApplicationException((ErrorCode.USER_NOT_FOUND),String.format("%s is not founded", userId)));
+    }
+
+    public PostEntity getPostEntityOrException(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new ApplicationException((ErrorCode.POST_NOT_FOUNDED), "post %s is not founded"));
     }
     
 }
