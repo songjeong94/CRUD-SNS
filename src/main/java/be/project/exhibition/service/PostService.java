@@ -32,10 +32,9 @@ public class PostService {
     }
 
     @Transactional
-    public PostDto modify(String title, String body, Long postId) {
+    public PostDto modify(String title, String body, Long postId, String name) {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
-        UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
-        if(postEntity.getUser().getUserId() != userEntity.getUserId()) {
+        if(!postEntity.getUser().getUserId().equals(name)) {
             throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
         }
         postEntity.setTitle(title);
@@ -45,20 +44,29 @@ public class PostService {
     }
 
     @Transactional
-    public void delete(Long postId) {
+    public void delete(Long postId, String name) {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
-        UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
-        if(postEntity.getUser() != userEntity) {
+        if(!postEntity.getUser().getUserId().equals(name)) {
             throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
         }
         postRepository.delete(postEntity);
     }
 
+    @Transactional
     public CommentDto comment(String comment, Long postId, UserDto userDto) {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
         UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
         CommentEntity commentEntity = commentRepository.save(CommentEntity.of(comment,postEntity, userEntity));
         return CommentDto.from(commentEntity);
+    }
+
+    @Transactional
+    public void commentDelete(Long commentId, String name) {
+        CommentEntity commentEntity = commentRepository.findById(commentId).orElseThrow(() -> new ApplicationException(ErrorCode.COMMENT_NOT_FOUNDED));
+        if(!commentEntity.getUserEntity().getUserId().equals(name)) {
+            throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
+        }
+        commentRepository.delete(commentEntity);
     }
 
     public UserEntity getUserEntityOrException(String userId) {

@@ -5,7 +5,6 @@ import be.project.exhibition.dto.PostDto;
 import be.project.exhibition.dto.requset.CommentRequest;
 import be.project.exhibition.dto.requset.PostCreateRequest;
 import be.project.exhibition.dto.response.Response;
-import be.project.exhibition.repository.UserRepository;
 import be.project.exhibition.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -25,14 +24,14 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public Response<PostDto> modify(@RequestBody PostCreateRequest request, @PathVariable Long postId) {
-        PostDto postDto = postService.modify(request.getTitle(), request.getBody(), postId);
+    public Response<PostDto> modify(@RequestBody PostCreateRequest request, @PathVariable Long postId, Authentication authentication) {
+        PostDto postDto = postService.modify(request.getTitle(), request.getBody(), postId, authentication.getName());
         return Response.success(postDto);
     }
 
     @DeleteMapping("/{postId}")
-    public Response<Void> delete(@PathVariable Long postId) {
-        postService.delete(postId);
+    public Response<Void> delete(@PathVariable Long postId, Authentication authentication) {
+        postService.delete(postId, authentication.getName());
         return Response.success();
     }
 
@@ -40,5 +39,11 @@ public class PostController {
     public Response<CommentDto> comment(@RequestBody CommentRequest request, @PathVariable Long postId) {
         CommentDto commentDto = postService.comment(request.getComment(), postId, request.getUserDto());
         return Response.success(commentDto);
+    }
+
+    @DeleteMapping("/{postId}/{commentId}")
+    public Response<Void> comment_delete(@PathVariable Long commentId, Authentication authentication, @PathVariable String postId) {
+        postService.commentDelete(commentId, authentication.getName());
+        return Response.success();
     }
 }
