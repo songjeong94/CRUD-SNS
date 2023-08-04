@@ -4,6 +4,7 @@ import be.project.exhibition.dto.CommentDto;
 import be.project.exhibition.dto.PostDto;
 import be.project.exhibition.dto.requset.CommentRequest;
 import be.project.exhibition.dto.requset.PostCreateRequest;
+import be.project.exhibition.dto.response.GetPostDto;
 import be.project.exhibition.dto.response.Response;
 import be.project.exhibition.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,12 @@ public class PostController {
     public Response<Void> delete(@PathVariable Long postId, Authentication authentication) {
         postService.delete(postId, authentication.getName());
         return Response.success();
+    }
+
+    @GetMapping("/{postId}")
+    public Response<GetPostDto> getPost(@PathVariable Long postId) {
+        GetPostDto getPostDto = postService.getPost(postId);
+        return Response.success(getPostDto);
     }
 
     @PostMapping("/{postId}/comment")
