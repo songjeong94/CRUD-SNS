@@ -1,30 +1,28 @@
-package be.project.exhibition.dto;
+package be.project.exhibition.dto.response;
 
 import be.project.exhibition.entity.PostEntity;
-import be.project.exhibition.entity.UserEntity;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
-public class PostDto {
+public class GetPostDto {
 
-    private Long id;
     private String title;
     private String body;
-    private UserDto user;
+    private String userId;
     private Integer likes;
     private Integer viewCount;
 
-    public static PostDto fromEntity(PostEntity entity) {
-        return new PostDto(
-                entity.getId(),
+    public static GetPostDto fromEntity(PostEntity entity) {
+        return new GetPostDto(
                 entity.getTitle(),
                 entity.getBody(),
-                UserDto.fromEntity(entity.getUser()),
+                entity.getUser().getUserId(),
                 entity.getLikes(),
                 entity.getViewCount());
     }
+
 }

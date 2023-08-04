@@ -32,10 +32,10 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> {
             web.ignoring().requestMatchers(
-                    HttpMethod.POST, "/api/*/users/join", "/api/*/users/login");
+                    HttpMethod.POST, "/api/*/users/join", "/api/*/users/login")
+                    .requestMatchers(HttpMethod.GET, "/api/*/posts/**");
         };
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http

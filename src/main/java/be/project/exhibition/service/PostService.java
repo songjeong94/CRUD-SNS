@@ -3,6 +3,7 @@ package be.project.exhibition.service;
 import be.project.exhibition.dto.CommentDto;
 import be.project.exhibition.dto.PostDto;
 import be.project.exhibition.dto.UserDto;
+import be.project.exhibition.dto.response.GetPostDto;
 import be.project.exhibition.entity.CommentEntity;
 import be.project.exhibition.entity.PostEntity;
 import be.project.exhibition.entity.UserEntity;
@@ -50,6 +51,11 @@ public class PostService {
             throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
         }
         postRepository.delete(postEntity);
+    }
+
+    public GetPostDto getPost(Long postId) {
+        PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
+        return GetPostDto.fromEntity(postEntity);
     }
 
     @Transactional

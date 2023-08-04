@@ -6,10 +6,13 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 @Entity
 @Getter
 @Setter
+@DynamicInsert
 public class PostEntity {
 
     @Id
@@ -25,6 +28,14 @@ public class PostEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     UserEntity user;
+
+    @ColumnDefault("0")
+    @Column(name = "likes", nullable = false)
+    private Integer likes;
+
+    @ColumnDefault("0")
+    @Column(name = "view_count", nullable = false)
+    private Integer viewCount;
 
     public PostEntity() {
 
