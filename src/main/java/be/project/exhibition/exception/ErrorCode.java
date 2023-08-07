@@ -18,6 +18,8 @@ public enum ErrorCode {
     COMMENT_NOT_FOUNDED(HttpStatus.NOT_FOUND, "존재하지 않는 댓글 입니다."),
 
     POST_NOT_FOUNDED(HttpStatus.NOT_FOUND, "존재하지 않는 포스트 입니다."),
+
+    ALREADY_LIKE(HttpStatus.CONFLICT, "이미 좋아요 하였습니다."),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "토큰이 맞지 않습니다.")
     ;
 

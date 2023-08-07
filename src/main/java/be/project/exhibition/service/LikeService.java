@@ -9,6 +9,7 @@ import be.project.exhibition.repository.LikeRepository;
 import be.project.exhibition.repository.PostRepository;
 import be.project.exhibition.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +25,7 @@ public class LikeService {
     public void like (Long postId, String userName) {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
         UserEntity userEntity = userRepository.findByUserId(userName).orElseThrow(() -> new ApplicationException((ErrorCode.USER_NOT_FOUND), String.format("%s is not founded", userName)));
-        LikeEntity likeEntity = LikeEntity.of(userEntity, postEntity);
-        if(!likeRepository.existsByUserEntityAndPostEntity(userEntity, postEntity)) {
-            likeRepository.save(likeEntity);
-            postEntity.setLikes(postEntity.getLikes()+1);
-        } else {
-            likeRepository.delete(likeEntity);
-            postEntity.setLikes(postEntity.getLikes()-1);
-        }
+        LikeEntity likeEntity = likeRepository.existsByUserEntityAndPostEntity(userEntity, postEntity).orElseThrow(() -> new ApplicationException(ErrorCode.ALREADY_LIKE));
+        likeRepository.save(likeEntity);
     }
 }
