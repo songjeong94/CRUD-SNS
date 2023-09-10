@@ -5,15 +5,16 @@ spring:
     username: root
     password: thdwjd
   jpa:
+    defer-datasource-initialization: true
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
-
+  sql.init.mode: always
 
 logging:
   level:

@@ -9,6 +9,7 @@ import java.util.Optional;
 @Entity
 @Getter
 @Setter
+@Table(name = "comment")
 public class CommentEntity {
 
     @Id
