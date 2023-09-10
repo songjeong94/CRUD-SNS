@@ -9,7 +9,6 @@ import be.project.exhibition.repository.LikeRepository;
 import be.project.exhibition.repository.PostRepository;
 import be.project.exhibition.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
