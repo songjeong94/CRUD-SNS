@@ -1,26 +1,26 @@
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song1', 'song@example.com', 'song1', 'song1', 'user');
+values ('song1', 'song@example.com', 'song1', 'song1', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song2', 'song2@example.com', 'song2', 'song2', 'user');
+values ('song2', 'song2@example.com', 'song2', 'song2', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song3', 'song3@example.com', 'song3', 'song3', 'user');
+values ('song3', 'song3@example.com', 'song3', 'song3', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song4', 'song4@example.com', 'song4', 'song4', 'user');
+values ('song4', 'song4@example.com', 'song4', 'song4', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song5', 'song5@example.com', 'song5', 'song5', 'user');
+values ('song5', 'song5@example.com', 'song5', 'song5', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song6', 'song6@example.com', 'song6', 'song6', 'user');
+values ('song6', 'song6@example.com', 'song6', 'song6', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song7', 'song7@example.com', 'song7', 'song7', 'user');
+values ('song7', 'song7@example.com', 'song7', 'song7', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song8', 'song8@example.com', 'song8', 'song8', 'user');
+values ('song8', 'song8@example.com', 'song8', 'song8', 'USER');
 
 
 insert into post (title, body, user_id) values ('bridges of madison county, the', 'fusce posuere felis sed lacus. morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. nunc rhoncus dui vel sem.
