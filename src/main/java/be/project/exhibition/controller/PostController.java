@@ -8,6 +8,8 @@ import be.project.exhibition.dto.response.GetPostDto;
 import be.project.exhibition.dto.response.Response;
 import be.project.exhibition.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,16 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+
+    @GetMapping("/all")
+    public Response<Page<GetPostDto>> list(Pageable pageable) {
+        return Response.success(postService.allPost(pageable).map(GetPostDto::fromDto));
+    }
+
+    @GetMapping("/my")
+    public Response<Page<GetPostDto>> myPosts(Pageable pageable, Authentication authentication) {
+        return Response.success(postService.myPost(authentication.getName(), pageable).map(GetPostDto::fromDto));
+    }
 
     @PostMapping
     public Response<PostDto> create(@RequestBody PostCreateRequest request, Authentication authentication) {

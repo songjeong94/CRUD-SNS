@@ -13,6 +13,8 @@ import be.project.exhibition.repository.CommentRepository;
 import be.project.exhibition.repository.PostRepository;
 import be.project.exhibition.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,16 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+
+    public Page<PostDto> allPost(Pageable pageable) {
+        return postRepository.findAll(pageable).map(PostDto::fromEntity);
+    }
+
+    public Page<PostDto> myPost(String userId, Pageable pageable) {
+        postRepository.findAll(pageable);
+        UserEntity userEntity = getUserEntityOrException(userId);
+        return postRepository.findAllByUser(userEntity, pageable).map(PostDto::fromEntity);
+    }
 
     @Transactional
     public PostDto create(String title, String body, String userId) {

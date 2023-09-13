@@ -29,20 +29,13 @@ public class SecurityConfig {
     private String key;
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> {
-            web.ignoring().requestMatchers(
-                    HttpMethod.POST, "/api/*/users/join", "/api/*/users/login")
-                    .requestMatchers(HttpMethod.GET, "/api/*/posts/**");
-        };
-    }
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/**").authenticated()
-                .requestMatchers("/chat").permitAll()
+//                .requestMatchers("/api/**").authenticated()
+                .requestMatchers("/api/*/users/join", "/api/*/users/login", "/api/*/posts/all").permitAll()
+                .requestMatchers("/api/*/posts/**" ).authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
