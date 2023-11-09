@@ -4,6 +4,7 @@ import be.project.exhibition.dto.UserDto;
 import be.project.exhibition.entity.UserEntity;
 import be.project.exhibition.exception.ApplicationException;
 import be.project.exhibition.exception.ErrorCode;
+import be.project.exhibition.repository.UserCacheRepository;
 import be.project.exhibition.repository.UserRepository;
 import be.project.exhibition.utils.JwtTokenUtils;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    private final UserCacheRepository userCacheRepository;
     @Value("${jwt.secret-key}")
     private String secretKey;
 
@@ -27,7 +29,8 @@ public class UserService {
     private Long expiredTimeMs;
 
     public UserDto loadUserByUserName(String userId) {
-        return userRepository.findByUserId(userId).map(UserDto::fromEntity).orElseThrow(() -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", userId)));
+        return userCacheRepository.getUser(userId).orElseGet(() ->
+                userRepository.findByUserId(userId).map(UserDto::fromEntity).orElseThrow(() -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", userId))));
     }
 
     @Transactional

@@ -81,7 +81,8 @@ public class PostService {
     @Transactional
     public void commentDelete(Long commentId, String name) {
         CommentEntity commentEntity = commentRepository.findById(commentId).orElseThrow(() -> new ApplicationException(ErrorCode.COMMENT_NOT_FOUNDED));
-        if(!commentEntity.getUserEntity().getUserId().equals(name)) {
+        UserEntity userEntity = userRepository.findById(name).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
+        if(!commentEntity.getUserEntity().getUserId().equals(userEntity.getUserId())) {
             throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
         }
         commentRepository.delete(commentEntity);
