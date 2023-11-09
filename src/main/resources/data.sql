@@ -1,26 +1,28 @@
-insert into user_account (user_id, email, `name`, password, `role`)
-values ('song1', 'song@example.com', 'song1', 'song1', 'USER');
+insert into user_account (user_id, email, `name`, `password`, `role`)
+values ('song1', 'song@example.com', 'song1', '$2a$12$UOgWpULw1KYu.6E77e11yekHSmZNiprceJFLbKHI/TOhIy8QqBUz6', 'USER');
 
-insert into user_account (user_id, email, `name`, password, `role`)
-values ('song2', 'song2@example.com', 'song2', 'song2', 'USER');
+insert into user_account (user_id, email, `name`, `password`, `role`)
+values ('song2', 'song2@example.com', 'song2', '$2a$12$b/Lwhg6GgslCiqoy3PM5W.vvBHppbmG6NUxm/72z4fzrXGHMFr2gS
+', 'USER');
 
-insert into user_account (user_id, email, `name`, password, `role`)
-values ('song3', 'song3@example.com', 'song3', 'song3', 'USER');
+insert into user_account (user_id, email, `name`, `password`, `role`)
+values ('song3', 'song3@example.com', 'song3', '$2a$12$4G4MNxaptO5g2e6hjoNkDOALlflec3nBS9Fm8kI7k39npj.Sxh4Zu', 'USER');
 
-insert into user_account (user_id, email, `name`, password, `role`)
-values ('song4', 'song4@example.com', 'song4', 'song4', 'USER');
+insert into user_account (user_id, email, `name`, `password`, `role`)
+values ('song4', 'song4@example.com', 'song4', '$2a$12$FohW4wd3VvjtWfqQZF46aOD6MUYc/FG5NuS9DJiazt0Yf3ImDclCe', 'USER');
 
-insert into user_account (user_id, email, `name`, password, `role`)
-values ('song5', 'song5@example.com', 'song5', 'song5', 'USER');
+insert into user_account (user_id, email, `name`, `password`, `role`)
+values ('song5', 'song5@example.com', 'song5', '$2a$12$jMvjLfwHJtKvXWGP1G0lLO.QbMhygD8RUdmPdXkau3Swe0ywGDcMO', 'USER');
 
-insert into user_account (user_id, email, `name`, password, `role`)
-values ('song6', 'song6@example.com', 'song6', 'song6', 'USER');
+insert into user_account (user_id, email, `name`, `password`, `role`)
+values ('song6', 'song6@example.com', 'song6', '$2a$12$wmF6vHoaCkxOOFmYPWcITeuNuwlHLnGo6sbjTX5vNV5ClPehp.MBO
+', 'USER');
 
-insert into user_account (user_id, email, `name`, password, `role`)
-values ('song7', 'song7@example.com', 'song7', 'song7', 'USER');
+insert into user_account (user_id, email, `name`, `password`, `role`)
+values ('song7', 'song7@example.com', 'song7', '$2a$12$S0JZGeFsqxyrgXoC/3loy.q1.2MEOvOa1J.KVPVGLAZ3QFAxWL/2O', 'USER');
 
-insert into user_account (user_id, email, `name`, password, `role`)
-values ('song8', 'song8@example.com', 'song8', 'song8', 'USER');
+insert into user_account (user_id, email, `name`, `password`, `role`)
+values ('song8', 'song8@example.com', 'song8', '$2a$12$zIq1ry4F.pVR3D6pGzC7aOIgJw5kWCUhImxc15jntbf3kNIDKCb1y', 'USER');
 
 
 insert into post (title, body, user_id) values ('bridges of madison county, the', 'fusce posuere felis sed lacus. morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. nunc rhoncus dui vel sem.

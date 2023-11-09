@@ -9,6 +9,9 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -30,13 +33,8 @@ public class PostEntity {
     @JoinColumn(name = "user_id")
     UserEntity user;
 
-    @ColumnDefault("0")
-    @Column(name = "likes", nullable = false)
-    private Integer likes;
-
-    @ColumnDefault("0")
-    @Column(name = "view_count", nullable = false)
-    private Integer viewCount;
+    @OneToMany(mappedBy = "id", cascade = CascadeType.REMOVE)
+    private List<LikeEntity> likesList = new ArrayList<>();
 
     public PostEntity() {
 

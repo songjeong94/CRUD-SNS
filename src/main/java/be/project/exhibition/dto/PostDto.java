@@ -1,11 +1,11 @@
 package be.project.exhibition.dto;
 
+import be.project.exhibition.entity.LikeEntity;
 import be.project.exhibition.entity.PostEntity;
-import be.project.exhibition.entity.UserEntity;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Getter
@@ -15,8 +15,7 @@ public class PostDto {
     private String title;
     private String body;
     private UserDto user;
-    private Integer likes;
-    private Integer viewCount;
+    private List<LikeEntity> likes;
 
     public static PostDto fromEntity(PostEntity entity) {
         return new PostDto(
@@ -24,7 +23,6 @@ public class PostDto {
                 entity.getTitle(),
                 entity.getBody(),
                 UserDto.fromEntity(entity.getUser()),
-                entity.getLikes(),
-                entity.getViewCount());
+                entity.getLikesList());
     }
 }

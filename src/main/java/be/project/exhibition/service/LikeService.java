@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class LikeService {
@@ -21,10 +23,11 @@ public class LikeService {
     private final LikeRepository likeRepository;
 
     @Transactional
-    public void like (Long postId, String userName) {
+    public void like(Long postId, String userName) {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
         UserEntity userEntity = userRepository.findByUserId(userName).orElseThrow(() -> new ApplicationException((ErrorCode.USER_NOT_FOUND), String.format("%s is not founded", userName)));
-        LikeEntity likeEntity = likeRepository.existsByUserEntityAndPostEntity(userEntity, postEntity).orElseThrow(() -> new ApplicationException(ErrorCode.ALREADY_LIKE));
-        likeRepository.save(likeEntity);
+        LikeEntity likeEntity = likeRepository.existsByUserEntityAndPostEntity(userEntity, postEntity).orElse(likeRepository.save(LikeEntity.of(userEntity, postEntity)));
+        likeRepository.delete(likeEntity);
+        likeRepository.flush();
     }
 }
