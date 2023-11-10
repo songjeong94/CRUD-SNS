@@ -21,12 +21,12 @@ public class PostWithCommentResponse {
     private Integer likes;
     private Integer viewCount;
 
-    public PostWithCommentResponse fromDto(PostDto postDto, CommentDto commentDto) {
-        postDto.getTitle(),
-        postDto.getBody(),
-        postDto.getUser(),
-        postDto.getLikes(),
-        postDto.getViewCount(),
-        commentDto.
-    }
+//    public PostWithCommentResponse fromDto(PostDto postDto, CommentDto commentDto) {
+//        postDto.getTitle(),
+//        postDto.getBody(),
+//        postDto.getUser(),
+//        postDto.getLikes(),
+//        postDto.getViewCount(),
+//        commentDto.getComment();
+//    }
 }

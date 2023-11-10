@@ -7,7 +7,7 @@ public class UserFixture {
         UserEntity result = new UserEntity();
         result.setUserId(userId);
         result.setPassword(password);
-        result.setUserName(userName);
+        result.setName(userName);
         result.setEmail(email);
 
         return result;

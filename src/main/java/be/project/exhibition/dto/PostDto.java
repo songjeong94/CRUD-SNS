@@ -15,7 +15,7 @@ public class PostDto {
     private String title;
     private String body;
     private UserDto user;
-    private Integer likes;
+    private Integer likeCount;
     private Integer viewCount;
 
     public static PostDto fromEntity(PostEntity entity) {
@@ -24,7 +24,7 @@ public class PostDto {
                 entity.getTitle(),
                 entity.getBody(),
                 UserDto.fromEntity(entity.getUser()),
-                entity.getLikes(),
+                entity.getLikeCount(),
                 entity.getViewCount());
     }
 }

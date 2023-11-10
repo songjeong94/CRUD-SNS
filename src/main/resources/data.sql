@@ -1,26 +1,26 @@
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song1', 'song@example.com', 'song1', 'song1', 'USER');
+values ('song1', 'song@example.com', 'song1', '$2a$12$OCjM3wyRHJ3IkjjtBrOotuARJT6etDEP/BmwWQaIW62LvFNCutoZq', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song2', 'song2@example.com', 'song2', 'song2', 'USER');
+values ('song2', 'song2@example.com', 'song2', '$2a$12$5DYWdp3/vxWV3AVU7kU82e2.gzsbmBQ7mzfWvsANr8TFuqCBuk5SG', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song3', 'song3@example.com', 'song3', 'song3', 'USER');
+values ('song3', 'song3@example.com', 'song3', '$2a$12$gE3Fq1..bDLBTJVSOJXNWemLApFafXrbNUIQjezfMobRHYqbeC1Oq', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song4', 'song4@example.com', 'song4', 'song4', 'USER');
+values ('song4', 'song4@example.com', 'song4', '$2a$12$qSIMcThK36b9g.3DAcYuAueQDNbzYqLj9cjyXE.rbzwhmy1IZ8fBS', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song5', 'song5@example.com', 'song5', 'song5', 'USER');
+values ('song5', 'song5@example.com', 'song5', '$2a$12$XpA5sRrVIEHjYswXFUKwhuQlzg/IZ1axBG9ssmd/xskuWGMYBZSBi', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song6', 'song6@example.com', 'song6', 'song6', 'USER');
+values ('song6', 'song6@example.com', 'song6', '$2a$12$MG2yYHKbciE3i0zjzUeWueaH0mnDBrp.MCVrxYuN3pLsB2.fUrWHq', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song7', 'song7@example.com', 'song7', 'song7', 'USER');
+values ('song7', 'song7@example.com', 'song7', '$2a$12$uEq5BQ0gZtNZVVNLVd95JOPDqN1obA1PwMut7yBgGJxjw4Px8nJHW', 'USER');
 
 insert into user_account (user_id, email, `name`, password, `role`)
-values ('song8', 'song8@example.com', 'song8', 'song8', 'USER');
+values ('song8', 'song8@example.com', 'song8', '$2a$12$ZWAtFvMsOgfcc4ulolwTs.EwByxRgky/GmcuUABSbEBHTfDcR4Iy2', 'USER');
 
 
 insert into post (title, body, user_id) values ('bridges of madison county, the', 'fusce posuere felis sed lacus. morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. nunc rhoncus dui vel sem.

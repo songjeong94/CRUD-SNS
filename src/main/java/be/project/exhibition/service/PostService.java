@@ -10,6 +10,7 @@ import be.project.exhibition.entity.UserEntity;
 import be.project.exhibition.exception.ApplicationException;
 import be.project.exhibition.exception.ErrorCode;
 import be.project.exhibition.repository.CommentRepository;
+import be.project.exhibition.repository.LikeRepository;
 import be.project.exhibition.repository.PostRepository;
 import be.project.exhibition.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
 
     public Page<PostDto> allPost(Pageable pageable) {
         return postRepository.findAll(pageable).map(PostDto::fromEntity);
@@ -46,7 +48,7 @@ public class PostService {
 
     @Transactional
     public PostDto modify(String title, String body, Long postId, String name) {
-        PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
+        PostEntity postEntity = getPostEntityOrException(postId);
         if(!postEntity.getUser().getUserId().equals(name)) {
             throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
         }
@@ -58,7 +60,7 @@ public class PostService {
 
     @Transactional
     public void delete(Long postId, String name) {
-        PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
+        PostEntity postEntity = getPostEntityOrException(postId);
         if(!postEntity.getUser().getUserId().equals(name)) {
             throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
         }
@@ -66,13 +68,13 @@ public class PostService {
     }
 
     public GetPostDto getPost(Long postId) {
-        PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
+        PostEntity postEntity = getPostEntityOrException(postId);
         return GetPostDto.fromEntity(postEntity);
     }
 
     @Transactional
     public CommentDto comment(String comment, Long postId, UserDto userDto) {
-        PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
+        PostEntity postEntity = getPostEntityOrException(postId);
         UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
         CommentEntity commentEntity = commentRepository.save(CommentEntity.of(comment,postEntity, userEntity));
         return CommentDto.from(commentEntity);

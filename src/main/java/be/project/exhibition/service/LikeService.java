@@ -24,7 +24,9 @@ public class LikeService {
     public void like (Long postId, String userName) {
         PostEntity postEntity = postRepository.findById(postId).orElseThrow(() -> new ApplicationException(ErrorCode.POST_NOT_FOUNDED));
         UserEntity userEntity = userRepository.findByUserId(userName).orElseThrow(() -> new ApplicationException((ErrorCode.USER_NOT_FOUND), String.format("%s is not founded", userName)));
-        LikeEntity likeEntity = likeRepository.existsByUserEntityAndPostEntity(userEntity, postEntity).orElseThrow(() -> new ApplicationException(ErrorCode.ALREADY_LIKE));
-        likeRepository.save(likeEntity);
+        boolean result = likeRepository.existsByUserEntityAndPostEntity(userEntity, postEntity);
+        if (result == true) {
+            likeRepository.deleteByUserEntityAndPostEntity(userEntity, postEntity);
+        } else likeRepository.save(LikeEntity.of(userEntity, postEntity));
     }
 }

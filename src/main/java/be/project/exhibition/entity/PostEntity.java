@@ -30,12 +30,13 @@ public class PostEntity {
     @JoinColumn(name = "user_id")
     UserEntity user;
 
-    @ColumnDefault("0")
-    @Column(name = "likes", nullable = false)
+    @Column(name = "likes")
     private Integer likes;
 
-    @ColumnDefault("0")
-    @Column(name = "view_count", nullable = false)
+    @Column(name = "like_count")
+    private Integer likeCount;
+
+    @Column(name = "view_count")
     private Integer viewCount;
 
     public PostEntity() {
