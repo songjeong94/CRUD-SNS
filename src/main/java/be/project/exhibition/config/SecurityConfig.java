@@ -36,6 +36,7 @@ public class SecurityConfig {
 //                .requestMatchers("/api/**").authenticated()
                 .requestMatchers("/api/*/users/join", "/api/*/users/login", "/api/*/posts/all").permitAll()
                 .requestMatchers("/api/*/posts/**" ).authenticated()
+                .requestMatchers("/api/*/like/**" ).authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
