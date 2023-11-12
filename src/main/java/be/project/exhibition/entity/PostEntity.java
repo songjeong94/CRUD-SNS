@@ -3,17 +3,17 @@ package be.project.exhibition.entity;
 import be.project.exhibition.dto.PostDto;
 import be.project.exhibition.dto.UserDto;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @DynamicInsert
-@Table(name = "post")
 public class PostEntity {
 
     @Id
@@ -28,20 +28,14 @@ public class PostEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    UserEntity user;
+    private UserEntity user;
 
     @Column(name = "likes")
-    private Integer likes;
+    @OneToMany(mappedBy = "id")
+    private List<LikeEntity> likes = new ArrayList<>();
 
-    @Column(name = "like_count")
-    private Integer likeCount;
 
-    @Column(name = "view_count")
-    private Integer viewCount;
-
-    public PostEntity() {
-
-    }
+    public PostEntity() { }
 
     public PostEntity of(String title, String body, UserDto user) {
         PostEntity postEntity = new PostEntity();
@@ -50,7 +44,6 @@ public class PostEntity {
         postEntity.setUser(UserEntity.of(user.getUserId(), user.getPassword(), user.getName(), user.getEmail()));
         return postEntity;
     }
-
 
     public static PostEntity of(String title, String body, UserEntity user) {
         PostEntity postEntity = new PostEntity();

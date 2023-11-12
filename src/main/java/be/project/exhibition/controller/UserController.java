@@ -8,9 +8,10 @@ import be.project.exhibition.dto.response.UserJoinResponse;
 import be.project.exhibition.dto.response.UserLoginResponse;
 import be.project.exhibition.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
 public class UserController {
