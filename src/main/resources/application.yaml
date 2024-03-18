@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/exhibition?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/exhibition2?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: thdwjd
   jpa:
@@ -10,11 +10,12 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
-#  sql.init.mode: always
+
+  sql.init.mode: always
 
 logging:
   level:
@@ -25,4 +26,5 @@ logging:
 jwt:
   secret-key: exhibition-sns-project-2023.secret_key
   # 30일
-  token.expired-time-ms: 2592000000
+  token.expired-time-ms: 86400000 # day
+  refresh-token.expired-time-ms: 604800000 # week

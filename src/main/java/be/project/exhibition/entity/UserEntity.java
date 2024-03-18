@@ -13,13 +13,13 @@ import lombok.Setter;
 public class UserEntity {
 
     @Id
-    @Column
+    @Column(length = 50)
     private String userId;
 
     @Column
     private String password;
 
-    @Column
+    @Column(length = 50)
     private String name;
 
     @Column

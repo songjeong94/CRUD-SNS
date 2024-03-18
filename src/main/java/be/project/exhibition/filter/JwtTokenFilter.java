@@ -1,4 +1,4 @@
-package be.project.exhibition.config.filter;
+package be.project.exhibition.filter;
 
 import be.project.exhibition.dto.UserDto;
 import be.project.exhibition.service.UserService;
@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 
 @Slf4j

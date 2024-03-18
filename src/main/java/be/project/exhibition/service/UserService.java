@@ -48,9 +48,26 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new ApplicationException(ErrorCode.INVALIDED_PASSWORD);
         }
-        String token = JwtTokenUtils.generateToken(userId,secretKey, expiredTimeMs);
+        String token = JwtTokenUtils.generateToken(userId, secretKey, expiredTimeMs);
 
         return token;
     }
+
+    public void changePassword(String userId, String oldPassword, String newPassword, String checkPassword) {
+        UserEntity user = userRepository.findById(userId).orElseThrow(
+                () -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s user is not founded", userId)));
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new ApplicationException(ErrorCode.INVALIDED_PASSWORD);
+        }
+
+        if(!newPassword.equals(checkPassword)) {
+            throw new ApplicationException(ErrorCode.INVALIDED_PASSWORD);
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+
 
 }

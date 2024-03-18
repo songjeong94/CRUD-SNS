@@ -20,18 +20,18 @@ public class PostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(length = 50)
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @Column(name = "likes")
-    @OneToMany(mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
     private List<LikeEntity> likes = new ArrayList<>();
 
 
