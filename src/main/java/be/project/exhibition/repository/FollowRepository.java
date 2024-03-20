@@ -1,26 +1,26 @@
 package be.project.exhibition.repository;
 
 import be.project.exhibition.entity.FollowEntity;
+import be.project.exhibition.entity.UserEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface FollowRepository extends JpaRepository<FollowEntity, Long> {
 
-    @Modifying
-    @Query(value = "insert into FollowEntity(toUserId, fromUserId, createDate)" +
-            "VALUES(:toUserId, :fromUserId, now())", nativeQuery = true)
-    void save(@Param("toUserId") String toUserId, @Param("fromUserId") String fromUserId);
+    List<FollowEntity> findAllByFromUser(UserEntity user);
 
-    @Modifying
-    @Query(value = "delete from FollowEntity where toUserId = :toUserId and fromUserId = :fromUserId")
-    void deleteByToUserIdAndFromUserId(@Param("toUserId") String toUserId, @Param("fromUserId") String fromUserId);
+    List<FollowEntity> findAllByToUser(UserEntity user);
 
-    int countByToUserId(String toUserId);
-
-    boolean existsByToUserIdAndFromUserId(String toUserId, String fromUserId);
+    void deleteFollowEntityByFromUser(UserEntity user);
+    @Query("select f from FollowEntity f where f.fromUser = :from and f.toUser = :to")
+    Optional<FollowEntity> findFollow(@Param("from") UserEntity fromUser, @Param("to") UserEntity toUser);
 
 }

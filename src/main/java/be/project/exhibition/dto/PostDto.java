@@ -12,14 +12,13 @@ public class PostDto {
     private String title;
     private String body;
     private UserDto user;
-    private Integer likeCount;
 
     public static PostDto fromEntity(PostEntity entity) {
         return new PostDto(
                 entity.getId(),
                 entity.getTitle(),
                 entity.getBody(),
-                UserDto.fromEntity(entity.getUser()),
-                entity.getLikes().size());
+                UserDto.fromEntity(entity.getUser())
+        );
     }
 }

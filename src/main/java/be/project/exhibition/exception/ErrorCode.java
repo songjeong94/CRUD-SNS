@@ -16,7 +16,7 @@ public enum ErrorCode {
     INVALIDED_PERMISSION(HttpStatus.UNAUTHORIZED, "작성자가 아닙니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
     COMMENT_NOT_FOUNDED(HttpStatus.NOT_FOUND, "존재하지 않는 댓글 입니다."),
-
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "올바른 요청이 아닙니다."),
     POST_NOT_FOUNDED(HttpStatus.NOT_FOUND, "존재하지 않는 포스트 입니다."),
 
     ALREADY_LIKE(HttpStatus.CONFLICT, "이미 좋아요 하였습니다."),

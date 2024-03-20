@@ -15,22 +15,20 @@ public class GetPostDto {
     private String title;
     private String body;
     private String userId;
-    private Integer likeCount;
 
     public static GetPostDto fromEntity(PostEntity entity) {
         return new GetPostDto(
                 entity.getTitle(),
                 entity.getBody(),
-                entity.getUser().getUserId(),
-                entity.getLikes().size());
+                entity.getUser().getUserId()
+                );
     }
 
     public static GetPostDto fromDto(PostDto postDto) {
         return new GetPostDto(
                 postDto.getTitle(),
                 postDto.getBody(),
-                postDto.getUser().getUserId(),
-                postDto.getLikeCount()
+                postDto.getUser().getUserId()
         );
     }
 

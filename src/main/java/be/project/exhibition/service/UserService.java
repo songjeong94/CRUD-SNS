@@ -26,14 +26,10 @@ public class UserService {
     @Value("${jwt.token.expired-time-ms}")
     private Long expiredTimeMs;
 
-    public UserDto loadUserByUserName(String userId) {
-        return userRepository.findByUserId(userId).map(UserDto::fromEntity).orElseThrow(() -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", userId)));
-    }
-
     @Transactional
     public UserDto join(String userId, String password, String userName, String email) {
         // 회원가입 여부 체크
-        userRepository.findById(userId).ifPresent(it -> {
+        userRepository.findByUserId(userId).ifPresent(it -> {
                 throw new ApplicationException(ErrorCode.DUPLICATED_USER_ID, String.format("%s is duplicated", userName));});
         String encodedPassword = passwordEncoder.encode(password);
         UserEntity userEntity = userRepository.save(UserEntity.of(userId, encodedPassword, userName, email));
@@ -41,7 +37,7 @@ public class UserService {
     }
 
     public String login(String userId, String password) {
-        UserEntity user = userRepository.findById(userId).orElseThrow(
+        UserEntity user = userRepository.findByUserId(userId).orElseThrow(
                 () -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s user is not founded", userId)));
 
         // 비밀번호 체크
@@ -52,6 +48,10 @@ public class UserService {
 
         return token;
     }
+
+    // TODO: logout
+
+
 
     public void changePassword(String userId, String oldPassword, String newPassword, String checkPassword) {
         UserEntity user = userRepository.findById(userId).orElseThrow(
@@ -68,6 +68,12 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public UserDto loadUserByUserName(String userId) {
+        return userRepository.findByUserId(userId).map(UserDto::fromEntity).orElseThrow(() -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", userId)));
+    }
 
+    public UserEntity findUserEntity(String userId) {
+        return userRepository.findByUserId(userId).orElseThrow(() -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", userId)));
+    }
 
 }

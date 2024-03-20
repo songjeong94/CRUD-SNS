@@ -26,14 +26,12 @@ public class PostEntity {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "postEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<CommentEntity> comments;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-    @Column(name = "likes")
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
-    private List<LikeEntity> likes = new ArrayList<>();
-
 
     public PostEntity() { }
 
