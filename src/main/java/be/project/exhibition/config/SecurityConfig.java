@@ -32,8 +32,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/*/users/join", "/api/*/users/login", "/api/*/posts/all").permitAll()
                 .requestMatchers("/api/*/users/**").authenticated()
                 .requestMatchers("/api/*/posts/**" ).authenticated()
-                .requestMatchers("/api/*/like/**" ).authenticated()
-                .requestMatchers("/api/*/follow/**").authenticated()
+                .requestMatchers("/api/*/comments/**").authenticated()
+//                .requestMatchers("/api/*/likes/**" ).authenticated()
+                .requestMatchers("/api/*/follows/**").authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -41,6 +42,7 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtTokenFilter(key,userService), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                .and().build();
+                .and()
+                .build();
     }
 }

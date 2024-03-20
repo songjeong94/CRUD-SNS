@@ -142,3 +142,17 @@ values ('this is comment!!!!', '1', 'song1'),
 ('this is comment!!!!', '7', 'song4'),
 ('this is comment!!!!', '7', 'song5'),
 ('this is comment!!!!', '8', 'song6');
+
+# insert into follow_entity(from_user, to_user)
+# values
+#     ('song1', 'song2'),
+#     ('song1', 'song3'),
+#     ('song1', 'song4'),
+#     ('song1', 'song5'),
+#     ('song1', 'song6'),
+#     ('song1', 'song7'),
+#     ('song1', 'song8'),
+#     ('song1', 'song9'),
+#     ('song2', 'song3'),
+#     ('song2', 'song4'),
+#     ('song2', 'song5');

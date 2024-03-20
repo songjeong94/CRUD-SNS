@@ -20,16 +20,6 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/all")
-    public Response<Page<GetPostDto>> list(Pageable pageable) {
-        return Response.success(postService.allPost(pageable).map(GetPostDto::fromDto));
-    }
-
-    @GetMapping("/my")
-    public Response<Page<GetPostDto>> myPosts(Pageable pageable, Authentication authentication) {
-        return Response.success(postService.myPost(authentication.getName(), pageable).map(GetPostDto::fromDto));
-    }
-
     @PostMapping
     public Response<PostDto> create(@RequestBody PostCreateRequest request, Authentication authentication) {
         PostDto postDto = postService.create(request.getTitle(), request.getBody(), authentication.getName());
@@ -54,15 +44,14 @@ public class PostController {
         return Response.success(getPostDto);
     }
 
-    @PostMapping("/{postId}/comment")
-    public Response<CommentDto> comment(@RequestBody CommentRequest request, @PathVariable Long postId) {
-        CommentDto commentDto = postService.comment(request.getComment(), postId, request.getUserDto());
-        return Response.success(commentDto);
+    @GetMapping("/all")
+    public Response<Page<GetPostDto>> getAllPost(Pageable pageable) {
+        return Response.success(postService.allPost(pageable).map(GetPostDto::fromDto));
     }
 
-    @DeleteMapping("/{postId}/{commentId}")
-    public Response<Void> comment_delete(@PathVariable Long commentId, Authentication authentication, @PathVariable String postId) {
-        postService.commentDelete(commentId, authentication.getName());
-        return Response.success();
+    @GetMapping("/my")
+    public Response<Page<GetPostDto>> myPosts(Pageable pageable, Authentication authentication) {
+        return Response.success(postService.myPost(authentication.getName(), pageable).map(GetPostDto::fromDto));
     }
+
 }

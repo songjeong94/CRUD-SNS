@@ -7,9 +7,11 @@ import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
+import java.util.List;
+
 @Setter
 @Getter
+@Entity
 public class UserEntity {
 
     @Id
@@ -29,6 +31,12 @@ public class UserEntity {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.USER;
+
+    @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY)
+    private List<FollowEntity> followerList;
+
+    @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY)
+    private List<FollowEntity> followingList;
 
     public static UserEntity of(String userId, String password, String userName, String email) {
         UserEntity userEntity = new UserEntity();

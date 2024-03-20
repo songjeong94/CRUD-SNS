@@ -1,16 +1,11 @@
 package be.project.exhibition.service;
 
-import be.project.exhibition.dto.CommentDto;
 import be.project.exhibition.dto.PostDto;
-import be.project.exhibition.dto.UserDto;
 import be.project.exhibition.dto.response.GetPostDto;
-import be.project.exhibition.entity.CommentEntity;
 import be.project.exhibition.entity.PostEntity;
 import be.project.exhibition.entity.UserEntity;
 import be.project.exhibition.exception.ApplicationException;
 import be.project.exhibition.exception.ErrorCode;
-import be.project.exhibition.repository.CommentRepository;
-import be.project.exhibition.repository.LikeRepository;
 import be.project.exhibition.repository.PostRepository;
 import be.project.exhibition.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,18 +21,6 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
-    private final CommentRepository commentRepository;
-    private final LikeRepository likeRepository;
-
-    public Page<PostDto> allPost(Pageable pageable) {
-        return postRepository.findAll(pageable).map(PostDto::fromEntity);
-    }
-
-    public Page<PostDto> myPost(String userId, Pageable pageable) {
-        postRepository.findAll(pageable);
-        UserEntity userEntity = getUserEntityOrException(userId);
-        return postRepository.findAllByUser(userEntity, pageable).map(PostDto::fromEntity);
-    }
 
     @Transactional
     public PostDto create(String title, String body, String userId) {
@@ -72,21 +55,13 @@ public class PostService {
         return GetPostDto.fromEntity(postEntity);
     }
 
-    @Transactional
-    public CommentDto comment(String comment, Long postId, UserDto userDto) {
-        PostEntity postEntity = getPostEntityOrException(postId);
-        UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
-        CommentEntity commentEntity = commentRepository.save(CommentEntity.of(comment,postEntity, userEntity));
-        return CommentDto.from(commentEntity);
+    public Page<PostDto> allPost(Pageable pageable) {
+        return postRepository.findAll(pageable).map(PostDto::fromEntity);
     }
 
-    @Transactional
-    public void commentDelete(Long commentId, String name) {
-        CommentEntity commentEntity = commentRepository.findById(commentId).orElseThrow(() -> new ApplicationException(ErrorCode.COMMENT_NOT_FOUNDED));
-        if(!commentEntity.getUserEntity().getUserId().equals(name)) {
-            throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
-        }
-        commentRepository.delete(commentEntity);
+    public Page<PostDto> myPost(String userId, Pageable pageable) {
+        UserEntity userEntity = getUserEntityOrException(userId);
+        return postRepository.findAllByUser(userEntity, pageable).map(PostDto::fromEntity);
     }
 
     public UserEntity getUserEntityOrException(String userId) {

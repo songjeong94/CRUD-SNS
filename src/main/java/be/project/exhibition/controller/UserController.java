@@ -23,6 +23,7 @@ public class UserController {
                             request.getName(), request.getEmail());
         return Response.success(UserJoinResponse.fromUserDto(user));
     }
+
     @PostMapping("/login")
     public Response<UserLoginResponse> login(@RequestBody UserLoginRequest request) {
         String token = userService.login(request.getUserId(), request.getPassword());
@@ -30,11 +31,15 @@ public class UserController {
     }
 
     @PatchMapping("/change-password")
-    public Response<?> changePassword(@RequestBody ChangePasswordRequest request, Authentication authentication) {
+    public Response<String> changePassword(@RequestBody ChangePasswordRequest request, Authentication authentication) {
         userService.changePassword(authentication.getName(),
                 request.getOldPassword(),
                 request.getNewPassword(),
                 request.getCheckPassword());
         return Response.success("password change success");
     }
+
+    // TODO: change userInfo
+
+    // TODO: GET userInfo { name, email, followers&count, following&count, phoneNumber }
 }
