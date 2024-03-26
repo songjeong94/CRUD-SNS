@@ -72,8 +72,8 @@ public class UserService {
         return userRepository.findByUserId(userId).map(UserDto::fromEntity).orElseThrow(() -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", userId)));
     }
 
-    public UserEntity findUserEntity(String userId) {
-        return userRepository.findByUserId(userId).orElseThrow(() -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s is not founded", userId)));
+    public UserEntity getUserEntityOrException(String userId) {
+        return userRepository.findByUserId(userId).orElseThrow(() -> new ApplicationException((ErrorCode.USER_NOT_FOUND),String.format("%s is not founded", userId)));
     }
 
 }

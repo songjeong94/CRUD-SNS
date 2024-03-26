@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users")
 public class UserController {
     private final UserService userService;
+
     @PostMapping("/join")
     public Response<UserJoinResponse> join(@RequestBody UserJoinRequest request) {
         UserDto user = userService.join(request.getUserId(), request.getPassword(),
