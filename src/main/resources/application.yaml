@@ -1,9 +1,22 @@
+
+---
 spring:
+  config:
+    activate:
+      on-profile: common
+
+#--------------------------------------------------------------
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/exhibition2?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: thdwjd
+    url: jdbc:mysql://localhost:3306/exhibition?serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     defer-datasource-initialization: true
     database: mysql
@@ -24,7 +37,13 @@ spring:
 
 
 jwt:
-  secret-key: exhibition-sns-project-2023.secret_key
+  secret-key: ${JWT_SECRET-KEY}
   # 30일
-  token.expired-time-ms: 86400000 # day
-  refresh-token.expired-time-ms: 604800000 # week
+  token.expired-time-ms: ${JWT_TOKEN.EXPIRED-TIME-MS} # day
+#--------------------------------------------------------------
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod

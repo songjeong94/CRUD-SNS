@@ -69,7 +69,7 @@ public class PostService {
     }
 
     public PostEntity getPostEntityOrException(Long postId) {
-        return postRepository.findById(postId).orElseThrow(() -> new ApplicationException((ErrorCode.POST_NOT_FOUNDED), "post %s is not founded"));
+        return postRepository.findById(postId).orElseThrow(() -> new ApplicationException((ErrorCode.POST_NOT_FOUNDED), "post is not founded"));
     }
     
 }

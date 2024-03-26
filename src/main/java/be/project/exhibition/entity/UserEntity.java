@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.awt.*;
 import java.util.List;
 
 @Setter
@@ -37,6 +38,7 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "toUser", fetch = FetchType.LAZY)
     private List<FollowEntity> followingList;
+
 
     public static UserEntity of(String userId, String password, String userName, String email) {
         UserEntity userEntity = new UserEntity();
