@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @DynamicInsert
-public class PostEntity {
+public class PostEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
