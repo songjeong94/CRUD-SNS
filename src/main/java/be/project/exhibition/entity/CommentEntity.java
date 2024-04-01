@@ -10,7 +10,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @Table(name = "comment")
-public class CommentEntity {
+public class CommentEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
