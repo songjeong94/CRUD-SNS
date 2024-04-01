@@ -50,7 +50,6 @@ public class FollowService {
         followRepository.deleteFollowEntityByFromUser(fromUserEntity);
     }
 
-    // TODO : 팔로잉 리스트
     public List<String> followingList(String requestUser, String selectedUser) {
         // 요청 유저
         UserEntity reqeustUserEntity = getUserEntityOrException(requestUser);
@@ -64,7 +63,6 @@ public class FollowService {
         return followList;
     }
 
-    // TODO : 팔로워 리스트
     public List<String> followerList(String requestUser, String selectedUser) {
         UserEntity reqeustUserEntity = getUserEntityOrException(requestUser);
         UserEntity selectedUserEntity = getUserEntityOrException(selectedUser);

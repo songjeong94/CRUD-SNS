@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/*/comments/**").authenticated()
 //                .requestMatchers("/api/*/likes/**" ).authenticated()
                 .requestMatchers("/api/*/follows/**").authenticated()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
