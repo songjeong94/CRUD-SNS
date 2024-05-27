@@ -1,4 +1,4 @@
-version: "2.23"
+version: "3.8"
 
 services:
 
@@ -18,8 +18,7 @@ services:
       context: ./database
     image: songjeonghyun/sns-service-database
     environment:
-#      - MYSQL_DATABASE=exhibtion
-#      - MYSQL_USER=${SPRING_DATASOURCE_USERNAME}
+      - MYSQL_DATABASE=sns
       - MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     volumes:
       - ./database/config:/etc/mysql/conf.d

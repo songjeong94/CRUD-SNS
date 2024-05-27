@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "follow")
 public class FollowEntity extends BaseEntity{
 
     @Id

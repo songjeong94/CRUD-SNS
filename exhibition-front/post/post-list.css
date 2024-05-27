@@ -1,0 +1,65 @@
+
+.popular-post{
+    background:#DDDDDD;
+}
+
+.line-item  {
+    background: url("https://bootdey.com/img/Content/border-top-dotted.gif") repeat-x scroll left top rgba(0, 0, 0, 0);
+    margin: 0 0 0 30px;
+    padding: 25px 0 15px;
+}
+
+.content-image {
+    float: right;
+    margin-bottom: 10px;
+    margin-left: 25px;
+    margin-top: 5px;
+}
+
+.post-title {
+    margin-bottom: 7px;
+    margin-top: 3px;
+}
+
+.post-title, post-title a {
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.summary {
+    color: #666;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 8px;
+}
+
+.teaser {
+    margin-bottom: 32px;
+    margin-top: 19px;
+    text-align: center;
+}
+
+.article-info {
+    padding: 0 29px;
+}
+.item-odd .article-category {
+    margin-top: 8px;
+}
+
+.article-title {
+    margin-bottom: 7px;
+    margin-top: 3px;
+}
+.article-title, .subfeatured .article-title a {
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.article-summary {
+    color: #666;
+    font-size: 14px;
+    line-height: 16px;
+    max-height: 64px;
+    overflow: hidden;
+}

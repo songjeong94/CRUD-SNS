@@ -23,10 +23,10 @@ public class CommentService {
     private final CommentRepository commentRepository;
 
     @Transactional
-    public CommentDto comment(String comment, Long postId, UserDto userDto) {
+    public CommentDto comment(Long postId, String comment, String userId) {
         PostEntity postEntity = getPostEntityOrException(postId);
-        UserEntity userEntity = userRepository.findById(postEntity.getUser().getUserId()).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
-        CommentEntity commentEntity = commentRepository.save(CommentEntity.of(comment,postEntity, userEntity));
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
+        CommentEntity commentEntity = commentRepository.save(CommentEntity.of(comment, postEntity, userEntity));
         return CommentDto.from(commentEntity);
     }
 
@@ -37,6 +37,11 @@ public class CommentService {
             throw new ApplicationException(ErrorCode.INVALIDED_PERMISSION);
         }
         commentRepository.delete(commentEntity);
+    }
+
+    // todo
+    public void getMyComment() {
+
     }
 
     public UserEntity getUserEntityOrException(String userId) {

@@ -5,6 +5,7 @@ import be.project.exhibition.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.util.ArrayList;
@@ -14,6 +15,10 @@ import java.util.List;
 @Getter
 @Setter
 @DynamicInsert
+@Table(name = "post", indexes = {
+        @Index(columnList = "title"),
+        @Index(columnList = "createdAt")
+})
 public class PostEntity extends BaseEntity{
 
     @Id
@@ -23,9 +28,11 @@ public class PostEntity extends BaseEntity{
     @Column(length = 50)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
+    @ToString.Exclude
+    @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "postEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments;
 
@@ -33,9 +40,14 @@ public class PostEntity extends BaseEntity{
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OrderBy("id asc")
+    private List<PostImage> postImages;
+
+
     public PostEntity() { }
 
-    public PostEntity of(String title, String body, UserDto user) {
+    public static PostEntity of(String title, String body, UserDto user) {
         PostEntity postEntity = new PostEntity();
         postEntity.setTitle(title);
         postEntity.setBody(body);

@@ -11,7 +11,6 @@ import java.util.Date;
 
 public class JwtTokenUtils {
 
-
     public static String getName(String token, String key) {
         return extractClaims(token, key).get("userName", String.class);
     }
