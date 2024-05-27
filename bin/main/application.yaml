@@ -1,0 +1,52 @@
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common
+
+#--------------------------------------------------------------
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sns?serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    defer-datasource-initialization: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql.init.mode: always
+
+file:
+  postImagePath: /Users/songjeonghyeon/Desktop/sns_image/
+
+#logging:
+#  level:
+#    org.hibernate.SQL: debug
+#    org.hibernate.type: trace
+
+
+jwt:
+  secret-key: ${JWT_SECRET-KEY}
+  # 30일
+  token.expired-time-ms: ${JWT_TOKEN.EXPIRED-TIME-MS} # day
+#--------------------------------------------------------------
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod

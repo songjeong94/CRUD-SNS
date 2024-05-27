@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class UserDto implements UserDetails {
     private String password;
     private String name;
     private String email;
+    private LocalDateTime createdAt;
     private UserRole userRole;
 
     public static UserDto fromEntity(UserEntity userEntity) {
@@ -30,8 +32,10 @@ public class UserDto implements UserDetails {
                 userEntity.getPassword(),
                 userEntity.getName(),
                 userEntity.getEmail(),
+                userEntity.getCreatedAt(),
                 userEntity.getRole());
     }
+
 
     @Override
     @JsonIgnore

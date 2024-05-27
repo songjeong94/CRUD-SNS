@@ -1,0 +1,9 @@
+.logo {
+    color: brown;
+}
+
+.menus {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}

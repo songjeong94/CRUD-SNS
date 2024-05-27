@@ -16,7 +16,7 @@ services:                                               # 이 항목 밑에 실�
       context: ./database
     image: songjeonghyun/sns-service-database
     environment:
-      - MYSQL_DATABASE: exhibition
+      - MYSQL_DATABASE: sns
       - MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     volumes:
       - ./database/config:/etc/mysql/conf.d

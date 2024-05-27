@@ -6,20 +6,24 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
 @Getter
 @Entity
+@Table(name = "user")
 public class UserEntity extends BaseEntity{
 
     @Id
     @Column(length = 50)
     private String userId;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
     @Column(length = 50)
@@ -32,6 +36,12 @@ public class UserEntity extends BaseEntity{
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.USER;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private UserImage profileImage;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<PostEntity> postList = new ArrayList<>();
 
     @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY)
     private List<FollowEntity> followerList;

@@ -14,7 +14,7 @@ spring:
       on-profile: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/exhibition?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/sns?serverTimezone=UTC&characterEncoding=UTF-8
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
@@ -29,6 +29,11 @@ spring:
         format_sql: true
 
   sql.init.mode: always
+
+file:
+  postImagePath: /Users/songjeonghyeon/Desktop/sns_image/post_image/
+  userImagePath: /Users/songjeonghyeon/Desktop/sns_image/user_image/
+
 
 #logging:
 #  level:
