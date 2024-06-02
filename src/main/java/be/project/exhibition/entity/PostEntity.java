@@ -31,11 +31,6 @@ public class PostEntity extends BaseEntity{
     @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
-    @ToString.Exclude
-    @OrderBy("createdAt DESC")
-    @OneToMany(mappedBy = "postEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<CommentEntity> comments;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
@@ -43,6 +38,14 @@ public class PostEntity extends BaseEntity{
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @OrderBy("id asc")
     private List<PostImage> postImages;
+
+    @ToString.Exclude
+    @OrderBy("createdAt DESC")
+    @OneToMany(mappedBy = "postEntity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<CommentEntity> comments;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<PostLikeEntity> postLikeEntities;
 
 
     public PostEntity() { }

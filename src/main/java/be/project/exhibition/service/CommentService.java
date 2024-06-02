@@ -25,7 +25,7 @@ public class CommentService {
     @Transactional
     public CommentDto comment(Long postId, String comment, String userId) {
         PostEntity postEntity = getPostEntityOrException(postId);
-        UserEntity userEntity = userRepository.findById(userId).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
+        UserEntity userEntity = userRepository.findByUserId(userId).orElseThrow(()-> new ApplicationException(ErrorCode.USER_NOT_FOUND));
         CommentEntity commentEntity = commentRepository.save(CommentEntity.of(comment, postEntity, userEntity));
         return CommentDto.from(commentEntity);
     }

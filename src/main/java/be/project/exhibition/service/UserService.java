@@ -91,10 +91,9 @@ public class UserService {
         return UserInfoResponse.fromEntity(user);
     }
 
-
-
+    @Transactional
     public void changePassword(String userId, String oldPassword, String newPassword, String checkPassword) {
-        UserEntity user = userRepository.findById(userId).orElseThrow(
+        UserEntity user = userRepository.findByUserId(userId).orElseThrow(
                 () -> new ApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s user is not founded", userId)));
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             throw new ApplicationException(ErrorCode.INVALIDED_PASSWORD);

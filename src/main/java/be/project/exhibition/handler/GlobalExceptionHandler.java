@@ -1,6 +1,8 @@
-package be.project.exhibition.exception;
+package be.project.exhibition.handler;
 
 import be.project.exhibition.dto.response.Response;
+import be.project.exhibition.exception.ApplicationException;
+import be.project.exhibition.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

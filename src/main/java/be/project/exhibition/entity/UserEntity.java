@@ -20,17 +20,19 @@ import java.util.List;
 public class UserEntity extends BaseEntity{
 
     @Id
-    @Column(length = 50)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String userId;
 
-    @Column(nullable = false)
+    @Column
     private String password;
 
-    @Column(length = 50)
+    @Column
     private String name;
 
     @Column
-    @Email(message = "이메일 형식이 올바르지 않습니다.")
     private String email;
 
     @Column(name = "role")
@@ -42,6 +44,9 @@ public class UserEntity extends BaseEntity{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<PostEntity> postList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<PostLikeEntity> postLikes;
 
     @OneToMany(mappedBy = "fromUser", fetch = FetchType.LAZY)
     private List<FollowEntity> followerList;

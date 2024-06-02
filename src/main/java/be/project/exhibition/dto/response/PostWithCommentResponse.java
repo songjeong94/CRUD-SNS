@@ -17,7 +17,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class PostWithCommentResponse {
 
     private Long id;

@@ -11,12 +11,16 @@
 <body>
 <div th:replace="~{fragments/nav::nav}"></div>
 <div class="col-md-6 offset-md-3">
-    <main class="card">
+    <div class="card">
         <div class="card-header"> 내 정보 </div>
+        <lable for="image" class="form-label">프로필 사진</lable>
+        <div class="card-img-top">
+        <img id="image" class="img-fluid rounded" th:src="@{|/user/image/${user.image}|}">
+        </div>
         <div class="card-body">
-            <div class="col-md-4">
-                <lable for="image" class="form-label">프로필 사진</lable>
-                <img id="image" th:src="@{|/user/image/${user.image}|}" alt="User Image">
+<!--            <div class="col-md-4">-->
+<!--                <lable for="image" class="form-label">프로필 사진</lable>-->
+<!--                <img id="image" th:src="@{|/user/image/${user.image}|}" width="200px" height="200px">-->
 <!--                class="img-fluid rounded-circle"-->
 <!--                <form th:action="@{/image/upload}" th:method="post" enctype="multipart/form-data" class="mt-2">-->
 <!--                    <div class="mb-3">-->
@@ -24,7 +28,7 @@
 <!--                    </div>-->
 <!--                    <button type="submit" class="btn btn-primary">Update Profile Picture</button>-->
 <!--                </form>-->
-            </div>
+<!--            </div>-->
             <div class="mb-3">
                 <lable for="id" class="form-label">아이디</lable>
                 <input type="text" id="id" class="form-label" th:value="${user.userId}" readonly>
@@ -43,7 +47,10 @@
             </div>
         </div>
 
-    </main>
+    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

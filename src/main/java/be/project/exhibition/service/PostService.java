@@ -5,10 +5,12 @@ import be.project.exhibition.dto.response.PostResponseDTO;
 import be.project.exhibition.dto.response.PostWithCommentResponse;
 import be.project.exhibition.entity.PostEntity;
 import be.project.exhibition.entity.PostImage;
+import be.project.exhibition.entity.PostLikeEntity;
 import be.project.exhibition.entity.UserEntity;
 import be.project.exhibition.exception.ApplicationException;
 import be.project.exhibition.exception.ErrorCode;
 import be.project.exhibition.repository.PostImageRepository;
+import be.project.exhibition.repository.PostLikeRepository;
 import be.project.exhibition.repository.PostRepository;
 import be.project.exhibition.repository.UserRepository;
 import be.project.exhibition.utils.FileStore;
@@ -20,7 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.PublicKey;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -30,6 +34,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
     private final PostImageRepository postImageRepository;
+    private final PostLikeRepository postLikeRepository;
     private final FileStore fileStore;
 //    private final RedisTemplate<String, PostDto> redisTemplate;
 
@@ -78,6 +83,35 @@ public class PostService {
     public Page<PostDto> myPost(String userId, Pageable pageable) {
         UserEntity userEntity = getUserEntityOrException(userId);
         return postRepository.findAllByUser(userEntity, pageable).map(PostDto::fromEntity);
+    }
+
+    @Transactional
+    public void like(Long postId, String userId) {
+
+        Optional<PostLikeEntity> likeEntity = postLikeRepository.findByPostIdAndAndUserUserId(postId, userId);
+
+        if(likeEntity.isPresent()) {
+            postLikeRepository.delete(likeEntity.get());
+        } else {
+
+            PostEntity postEntity = getPostEntityOrException(postId);
+            UserEntity userEntity = getUserEntityOrException(userId);
+
+            PostLikeEntity like = PostLikeEntity.builder()
+                    .post(postEntity)
+                    .user(userEntity)
+                    .build();
+
+            postLikeRepository.save(like);
+        }
+    }
+
+    public boolean isLikedByUser(Long postId, String userId) {
+        return postLikeRepository.findByPostIdAndAndUserUserId(postId, userId).isPresent();
+    }
+
+    public long countLikes(Long postId) {
+        return postLikeRepository.countByPostId(postId);
     }
 
     public UserEntity getUserEntityOrException(String userId) {
